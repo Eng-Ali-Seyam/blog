@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\StaticController;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,11 +29,11 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard/my_news', 'my_news')->name('my_news');
     Route::get('/dashboard/add_news', 'add_news')->name('add_news');
     Route::get('/dashboard/admin', 'admin')->name('admin');
-});
+})->middleware('verified');
 
 Route::resource('categories',CategoryController::class);
 Route::resource('news',NewsController::class);
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
